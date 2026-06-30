@@ -17,6 +17,7 @@ import { useState } from "react";
 import heroReference from "./assets/hero-reference.png";
 import { eventInfo } from "./data/event";
 import { useCountdown } from "./hooks/useCountdown";
+import { LeafOrnaments } from "./components/LeafOrnaments";
 import { Section } from "./components/Section";
 
 const formatGoogleCalendarDate = (dateTime: string) =>
@@ -49,6 +50,7 @@ export const App = () => {
   return (
     <main className="app-shell min-h-screen text-stone-100">
       <section className="relative flex min-h-screen items-start justify-center overflow-hidden px-6 py-24 text-center">
+        <LeafOrnaments position="hero" />
         <div
           className="hero-image absolute inset-0 bg-cover bg-center opacity-95"
           style={{
@@ -104,14 +106,14 @@ export const App = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <CalendarPlus size={19} />
+              <CalendarPlus size={19} strokeWidth={1.45} />
               Agendar
             </a>
           </motion.div>
         </div>
       </section>
 
-      <Section icon={<Church size={56} strokeWidth={1.6} />} title="Ceremonia">
+      <Section icon={<Church size={54} strokeWidth={1.15} />} title="Ceremonia">
         <div className="space-y-7">
           <p className="mx-auto max-w-xl rounded-[1.75rem] bg-stone-50 px-6 py-5 text-lg font-medium italic leading-relaxed text-zinc-700">
             Un momento simple, cuidado y compartido con quienes queremos cerca.
@@ -125,7 +127,7 @@ export const App = () => {
         </div>
       </Section>
 
-      <Section icon={<GlassWater size={56} strokeWidth={1.6} />} title="Fiesta">
+      <Section icon={<GlassWater size={54} strokeWidth={1.15} />} title="Fiesta">
         <div className="space-y-7">
           <p className="mx-auto max-w-xl rounded-[1.75rem] bg-stone-50 px-6 py-5 font-script text-4xl leading-tight text-zinc-700">
             Que el tiempo pase viendonos reir
@@ -139,7 +141,7 @@ export const App = () => {
         </div>
       </Section>
 
-      <Section icon={<Sparkles size={56} strokeWidth={1.6} />} title="Vestimenta">
+      <Section icon={<Sparkles size={54} strokeWidth={1.15} />} title="Vestimenta">
         <div className="space-y-5">
           <p className="font-display mx-auto inline-flex rounded-[1.25rem] bg-stone-50 px-8 py-3 text-3xl font-black uppercase text-zinc-800">
             {eventInfo.dressCode.label}
@@ -150,7 +152,7 @@ export const App = () => {
         </div>
       </Section>
 
-      <Section icon={<Images size={56} strokeWidth={1.6} />} title="Fotos">
+      <Section icon={<Images size={54} strokeWidth={1.15} />} title="Fotos">
         <div className="space-y-8">
           <p className="mx-auto max-w-xl text-lg uppercase leading-relaxed tracking-[0.08em] text-stone-300">
             Un espacio reservado para sumar algunas fotos cuando definamos las
@@ -160,7 +162,7 @@ export const App = () => {
         </div>
       </Section>
 
-      <Section icon={<Gift size={56} strokeWidth={1.6} />} title="Regalos">
+      <Section icon={<Gift size={54} strokeWidth={1.15} />} title="Regalos">
         <div className="space-y-6">
           <p className="mx-auto max-w-xl text-xl uppercase leading-relaxed tracking-[0.08em] text-stone-300">
             {eventInfo.gifts.note}
@@ -170,14 +172,18 @@ export const App = () => {
             type="button"
             onClick={copyAlias}
           >
-            {aliasCopied ? <Check size={22} /> : <Copy size={22} />}
+            {aliasCopied ? (
+              <Check size={22} strokeWidth={1.55} />
+            ) : (
+              <Copy size={22} strokeWidth={1.55} />
+            )}
             {aliasCopied ? "Copiado" : "Copiar alias"}
           </button>
         </div>
       </Section>
 
       <Section
-        icon={<ClipboardCheck size={56} strokeWidth={1.6} />}
+        icon={<ClipboardCheck size={54} strokeWidth={1.15} />}
         title="Confirma tu asistencia"
       >
         <div className="space-y-8">
@@ -195,13 +201,13 @@ export const App = () => {
             }}
           >
             Confirmar
-            <ExternalLink size={20} />
+            <ExternalLink size={20} strokeWidth={1.55} />
           </a>
         </div>
       </Section>
 
       <footer className="font-display px-6 pb-12 text-center text-sm uppercase tracking-[0.24em] text-stone-400">
-        <CalendarDays className="mx-auto mb-4" size={28} strokeWidth={1.5} />
+        <CalendarDays className="mx-auto mb-4 opacity-70" size={28} strokeWidth={1.15} />
         Nos vemos ese dia
       </footer>
     </main>
@@ -217,7 +223,7 @@ type EventDetailProps = {
 
 const EventDetail = ({ place, time, address, mapUrl }: EventDetailProps) => (
   <div className="space-y-5 text-stone-300">
-    <MapPin className="mx-auto" size={44} strokeWidth={1.4} />
+    <MapPin className="mx-auto opacity-70" size={42} strokeWidth={1.15} />
     <div>
       <p className="text-3xl font-medium uppercase tracking-[0.08em]">{place}</p>
       <p className="mt-4 text-5xl font-black text-stone-300">{time}</p>
@@ -235,7 +241,7 @@ const EventDetail = ({ place, time, address, mapUrl }: EventDetailProps) => (
       }}
     >
       Ver ubicacion
-      <ExternalLink size={16} />
+      <ExternalLink size={16} strokeWidth={1.55} />
     </a>
   </div>
 );

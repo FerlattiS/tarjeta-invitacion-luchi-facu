@@ -1,5 +1,6 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { motion } from "framer-motion";
+import { LeafOrnaments } from "./LeafOrnaments";
 
 type SectionProps = PropsWithChildren<{
   icon: ReactNode;
@@ -15,9 +16,11 @@ export const Section = ({ icon, title, eyebrow, children }: SectionProps) => (
     transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
     viewport={{ once: true, amount: 0.28 }}
   >
+    <LeafOrnaments position="left" />
+    <LeafOrnaments position="right" />
     <div className="section-glow pointer-events-none absolute inset-x-8 top-16 h-px opacity-70" />
     <motion.div
-      className="mb-8 flex size-28 items-center justify-center rounded-full bg-stone-300 text-stone-50 shadow-soft"
+      className="section-icon mb-8 flex size-28 items-center justify-center rounded-full border border-stone-100/20 bg-stone-300/70 text-stone-50 shadow-soft backdrop-blur-sm"
       initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
       whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
       transition={{ duration: 0.75, delay: 0.12, ease: "easeOut" }}

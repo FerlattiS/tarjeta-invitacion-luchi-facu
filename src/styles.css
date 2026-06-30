@@ -62,6 +62,75 @@ button {
   background: linear-gradient(90deg, transparent, rgb(214 202 181 / 0.52), transparent);
 }
 
+.section-icon svg {
+  animation: icon-drift 5.5s ease-in-out infinite;
+  opacity: 0.74;
+  stroke-width: 1.15;
+  filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.12));
+}
+
+.leaf-ornament {
+  position: absolute;
+  z-index: 0;
+  width: min(34vw, 210px);
+  height: auto;
+  color: rgb(214 202 181 / 0.34);
+  pointer-events: none;
+}
+
+.leaf-ornament-left {
+  top: 12%;
+  left: max(-72px, -8vw);
+  transform: rotate(-8deg);
+}
+
+.leaf-ornament-right {
+  right: max(-80px, -9vw);
+  bottom: 8%;
+  transform: scaleX(-1) rotate(-10deg);
+}
+
+.leaf-ornament-hero {
+  right: max(-62px, -6vw);
+  bottom: 4%;
+  z-index: 1;
+  width: min(42vw, 260px);
+  color: rgb(245 245 244 / 0.28);
+  transform: scaleX(-1) rotate(-12deg);
+}
+
+.leaf-stem,
+.leaf-line {
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: leaf-draw 1.35s ease-out forwards, leaf-sway 7s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.leaf-line-a {
+  animation-delay: 0.12s, 1.4s;
+}
+
+.leaf-line-b {
+  animation-delay: 0.24s, 1.5s;
+}
+
+.leaf-line-c {
+  animation-delay: 0.36s, 1.6s;
+}
+
+.leaf-line-d {
+  animation-delay: 0.48s, 1.7s;
+}
+
+.leaf-line-e {
+  animation-delay: 0.6s, 1.8s;
+}
+
 @keyframes slow-zoom {
   from {
     transform: scale(1);
@@ -69,6 +138,34 @@ button {
 
   to {
     transform: scale(1.08);
+  }
+}
+
+@keyframes icon-drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes leaf-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes leaf-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(1.8deg);
   }
 }
 
@@ -87,4 +184,24 @@ button {
   content: "";
   border: 1px solid rgb(231 229 228 / 0.22);
   border-radius: 1rem;
+}
+
+@media (max-width: 640px) {
+  .leaf-ornament {
+    width: 160px;
+    opacity: 0.58;
+  }
+
+  .leaf-ornament-left {
+    left: -104px;
+  }
+
+  .leaf-ornament-right {
+    right: -112px;
+  }
+
+  .leaf-ornament-hero {
+    right: -86px;
+    width: 190px;
+  }
 }
