@@ -14,6 +14,32 @@ Fecha del evento: 10/10/2026.
 
 ## Estado
 
-Proyecto en etapa inicial de definicion tecnica y estetica.
+Proyecto inicializado con Vite, React, TypeScript y Tailwind CSS.
 
 Ver detalles en [docs/stack-y-deploy.md](docs/stack-y-deploy.md).
+
+## Desarrollo local
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+Correr la app:
+
+```bash
+npm run dev
+```
+
+Validar build:
+
+```bash
+npm run build
+```
+
+Revisar lint:
+
+```bash
+npm run lint
+```

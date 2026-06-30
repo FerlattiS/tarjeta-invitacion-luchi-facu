@@ -1,0 +1,171 @@
+import {
+  CalendarDays,
+  Church,
+  ClipboardCheck,
+  Gift,
+  GlassWater,
+  MapPin,
+  Shirt,
+} from "lucide-react";
+import heroReference from "./assets/hero-reference.png";
+import { eventInfo } from "./data/event";
+import { useCountdown } from "./hooks/useCountdown";
+import { Section } from "./components/Section";
+
+const openExternal = (url: string) => {
+  if (url === "#") return;
+  window.open(url, "_blank", "noopener,noreferrer");
+};
+
+export const App = () => {
+  const countdown = useCountdown(eventInfo.dateTime);
+
+  return (
+    <main className="min-h-screen bg-zinc-900 text-stone-100">
+      <section className="relative flex min-h-screen items-start justify-center overflow-hidden px-6 py-24 text-center">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-95"
+          style={{
+            backgroundImage: `linear-gradient(180deg, rgba(15,15,15,0.08), rgba(15,15,15,0.86)), url(${heroReference})`,
+          }}
+        />
+        <div className="relative z-10 flex min-h-[78vh] w-full max-w-4xl flex-col items-center justify-between">
+          <div>
+            <p className="mb-8 text-xl font-black uppercase tracking-[0.18em] text-stone-50 sm:text-3xl">
+              {eventInfo.title}
+            </p>
+            <h1 className="font-script text-7xl leading-none text-stone-50 sm:text-9xl">
+              {eventInfo.names}
+            </h1>
+          </div>
+
+          <div className="space-y-8">
+            <p className="font-serif text-6xl italic text-black/80 drop-shadow-sm sm:text-8xl">
+              {eventInfo.dateLabel}
+            </p>
+            <div className="grid grid-cols-4 gap-2 rounded-[2rem] bg-stone-50/95 p-4 text-zinc-900 shadow-soft backdrop-blur sm:gap-5 sm:px-8">
+              {[
+                ["dias", countdown.days],
+                ["hs", countdown.hours],
+                ["min", countdown.minutes],
+                ["seg", countdown.seconds],
+              ].map(([label, value]) => (
+                <div key={label} className="min-w-16">
+                  <p className="text-2xl font-black sm:text-4xl">{value}</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.12em] text-zinc-500">
+                    {label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Section icon={<Church size={56} strokeWidth={1.6} />} title="Ceremonia">
+        <div className="space-y-7">
+          <p className="mx-auto max-w-xl rounded-[1.75rem] bg-stone-50 px-6 py-5 text-lg font-medium italic leading-relaxed text-zinc-700">
+            Un momento simple, cuidado y compartido con quienes queremos cerca.
+          </p>
+          <EventDetail
+            place={eventInfo.ceremony.place}
+            time={eventInfo.ceremony.time}
+            address={eventInfo.ceremony.address}
+            mapUrl={eventInfo.ceremony.mapUrl}
+          />
+        </div>
+      </Section>
+
+      <Section icon={<GlassWater size={56} strokeWidth={1.6} />} title="Fiesta">
+        <div className="space-y-7">
+          <p className="mx-auto max-w-xl rounded-[1.75rem] bg-stone-50 px-6 py-5 font-script text-4xl leading-tight text-zinc-700">
+            Que el tiempo pase viendonos reir
+          </p>
+          <EventDetail
+            place={eventInfo.party.place}
+            time={eventInfo.party.time}
+            address={eventInfo.party.address}
+            mapUrl={eventInfo.party.mapUrl}
+          />
+        </div>
+      </Section>
+
+      <Section icon={<Shirt size={56} strokeWidth={1.6} />} title="Vestimenta">
+        <div className="space-y-5">
+          <p className="mx-auto inline-flex rounded-[1.25rem] bg-stone-50 px-8 py-3 text-3xl font-black uppercase text-zinc-800">
+            {eventInfo.dressCode.label}
+          </p>
+          <p className="mx-auto max-w-xl text-xl uppercase leading-relaxed tracking-[0.08em] text-stone-300">
+            {eventInfo.dressCode.note}
+          </p>
+        </div>
+      </Section>
+
+      <Section icon={<Gift size={56} strokeWidth={1.6} />} title="Regalos">
+        <div className="space-y-6">
+          <p className="mx-auto max-w-xl text-xl uppercase leading-relaxed tracking-[0.08em] text-stone-300">
+            {eventInfo.gifts.note}
+          </p>
+          <button
+            className="rounded-full bg-stone-50 px-10 py-3 text-xl font-black uppercase text-zinc-800 transition hover:-translate-y-0.5 hover:bg-white"
+            type="button"
+            onClick={() => navigator.clipboard.writeText(eventInfo.gifts.alias)}
+          >
+            Copiar alias
+          </button>
+        </div>
+      </Section>
+
+      <Section
+        icon={<ClipboardCheck size={56} strokeWidth={1.6} />}
+        title="Confirma tu asistencia"
+      >
+        <div className="space-y-8">
+          <p className="text-xl uppercase leading-relaxed tracking-[0.08em] text-stone-300">
+            Es de gran ayuda la confirmacion antes del{" "}
+            <strong className="text-stone-100">{eventInfo.rsvp.deadline}</strong>.
+          </p>
+          <button
+            className="rounded-full bg-stone-50 px-10 py-3 text-xl font-black uppercase text-zinc-800 transition hover:-translate-y-0.5 hover:bg-white"
+            type="button"
+            onClick={() => openExternal(eventInfo.rsvp.url)}
+          >
+            Confirmar
+          </button>
+        </div>
+      </Section>
+
+      <footer className="px-6 pb-12 text-center text-sm uppercase tracking-[0.24em] text-stone-400">
+        <CalendarDays className="mx-auto mb-4" size={28} strokeWidth={1.5} />
+        Nos vemos ese dia
+      </footer>
+    </main>
+  );
+};
+
+type EventDetailProps = {
+  place: string;
+  time: string;
+  address: string;
+  mapUrl: string;
+};
+
+const EventDetail = ({ place, time, address, mapUrl }: EventDetailProps) => (
+  <div className="space-y-5 text-stone-300">
+    <MapPin className="mx-auto" size={44} strokeWidth={1.4} />
+    <div>
+      <p className="text-3xl font-medium uppercase tracking-[0.08em]">{place}</p>
+      <p className="mt-4 text-5xl font-black text-stone-300">{time}</p>
+      <p className="mt-4 text-sm uppercase tracking-[0.2em] text-stone-400">
+        {address}
+      </p>
+    </div>
+    <button
+      className="rounded-full bg-stone-50 px-8 py-3 text-sm font-black uppercase tracking-[0.08em] text-zinc-800 transition hover:-translate-y-0.5 hover:bg-white"
+      type="button"
+      onClick={() => openExternal(mapUrl)}
+    >
+      Ver ubicacion
+    </button>
+  </div>
+);
