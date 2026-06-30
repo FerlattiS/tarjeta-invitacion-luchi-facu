@@ -22,6 +22,8 @@ Proyecto inicializado con Vite, React, TypeScript y Tailwind CSS.
 
 Ver detalles en [docs/stack-y-deploy.md](docs/stack-y-deploy.md).
 
+Ideas para futuras iteraciones en [docs/ideas-para-agregar.md](docs/ideas-para-agregar.md).
+
 ## Desarrollo local
 
 Instalar dependencias:

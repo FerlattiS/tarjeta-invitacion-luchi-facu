@@ -1,45 +1,66 @@
 import {
   CalendarDays,
+  Check,
   Church,
   ClipboardCheck,
+  Copy,
+  ExternalLink,
   Gift,
   GlassWater,
   MapPin,
-  Shirt,
+  Sparkles,
 } from "lucide-react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import heroReference from "./assets/hero-reference.png";
 import { eventInfo } from "./data/event";
 import { useCountdown } from "./hooks/useCountdown";
 import { Section } from "./components/Section";
 
-const openExternal = (url: string) => {
-  if (url === "#") return;
-  window.open(url, "_blank", "noopener,noreferrer");
-};
-
 export const App = () => {
   const countdown = useCountdown(eventInfo.dateTime);
+  const [aliasCopied, setAliasCopied] = useState(false);
+
+  const copyAlias = async () => {
+    await navigator.clipboard.writeText(eventInfo.gifts.alias);
+    setAliasCopied(true);
+    window.setTimeout(() => setAliasCopied(false), 1800);
+  };
 
   return (
     <main className="min-h-screen bg-zinc-900 text-stone-100">
       <section className="relative flex min-h-screen items-start justify-center overflow-hidden px-6 py-24 text-center">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-95"
+          className="hero-image absolute inset-0 bg-cover bg-center opacity-95"
           style={{
             backgroundImage: `linear-gradient(180deg, rgba(15,15,15,0.08), rgba(15,15,15,0.86)), url(${heroReference})`,
           }}
         />
         <div className="relative z-10 flex min-h-[78vh] w-full max-w-4xl flex-col items-center justify-between">
-          <div>
-            <p className="mb-8 text-xl font-black uppercase tracking-[0.18em] text-stone-50 sm:text-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: -22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <p className="font-display mb-8 text-xl font-black uppercase tracking-[0.18em] text-stone-50 sm:text-3xl">
               {eventInfo.title}
             </p>
-            <h1 className="font-script text-7xl leading-none text-stone-50 sm:text-9xl">
+            <motion.h1
+              className="font-script text-7xl leading-none text-stone-50 sm:text-9xl"
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.18, ease: "easeOut" }}
+            >
               {eventInfo.names}
-            </h1>
-          </div>
+            </motion.h1>
+          </motion.div>
 
-          <div className="space-y-8">
+          <motion.div
+            className="space-y-8"
+            initial={{ opacity: 0, y: 34 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.45, ease: "easeOut" }}
+          >
             <p className="font-serif text-6xl italic text-black/80 drop-shadow-sm sm:text-8xl">
               {eventInfo.dateLabel}
             </p>
@@ -52,13 +73,13 @@ export const App = () => {
               ].map(([label, value]) => (
                 <div key={label} className="min-w-16">
                   <p className="text-2xl font-black sm:text-4xl">{value}</p>
-                  <p className="text-xs font-bold uppercase tracking-[0.12em] text-zinc-500">
+                  <p className="font-display text-xs font-bold uppercase tracking-[0.12em] text-zinc-500">
                     {label}
                   </p>
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -90,9 +111,9 @@ export const App = () => {
         </div>
       </Section>
 
-      <Section icon={<Shirt size={56} strokeWidth={1.6} />} title="Vestimenta">
+      <Section icon={<Sparkles size={56} strokeWidth={1.6} />} title="Vestimenta">
         <div className="space-y-5">
-          <p className="mx-auto inline-flex rounded-[1.25rem] bg-stone-50 px-8 py-3 text-3xl font-black uppercase text-zinc-800">
+          <p className="font-display mx-auto inline-flex rounded-[1.25rem] bg-stone-50 px-8 py-3 text-3xl font-black uppercase text-zinc-800">
             {eventInfo.dressCode.label}
           </p>
           <p className="mx-auto max-w-xl text-xl uppercase leading-relaxed tracking-[0.08em] text-stone-300">
@@ -107,11 +128,12 @@ export const App = () => {
             {eventInfo.gifts.note}
           </p>
           <button
-            className="rounded-full bg-stone-50 px-10 py-3 text-xl font-black uppercase text-zinc-800 transition hover:-translate-y-0.5 hover:bg-white"
+            className="font-display inline-flex items-center gap-3 rounded-full bg-stone-50 px-10 py-3 text-xl font-black uppercase text-zinc-800 transition hover:-translate-y-0.5 hover:bg-white"
             type="button"
-            onClick={() => navigator.clipboard.writeText(eventInfo.gifts.alias)}
+            onClick={copyAlias}
           >
-            Copiar alias
+            {aliasCopied ? <Check size={22} /> : <Copy size={22} />}
+            {aliasCopied ? "Copiado" : "Copiar alias"}
           </button>
         </div>
       </Section>
@@ -125,17 +147,22 @@ export const App = () => {
             Es de gran ayuda la confirmacion antes del{" "}
             <strong className="text-stone-100">{eventInfo.rsvp.deadline}</strong>.
           </p>
-          <button
-            className="rounded-full bg-stone-50 px-10 py-3 text-xl font-black uppercase text-zinc-800 transition hover:-translate-y-0.5 hover:bg-white"
-            type="button"
-            onClick={() => openExternal(eventInfo.rsvp.url)}
+          <a
+            className="font-display inline-flex items-center gap-3 rounded-full bg-stone-50 px-10 py-3 text-xl font-black uppercase text-zinc-800 transition hover:-translate-y-0.5 hover:bg-white"
+            href={eventInfo.rsvp.url}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(event) => {
+              if (eventInfo.rsvp.url === "#") event.preventDefault();
+            }}
           >
             Confirmar
-          </button>
+            <ExternalLink size={20} />
+          </a>
         </div>
       </Section>
 
-      <footer className="px-6 pb-12 text-center text-sm uppercase tracking-[0.24em] text-stone-400">
+      <footer className="font-display px-6 pb-12 text-center text-sm uppercase tracking-[0.24em] text-stone-400">
         <CalendarDays className="mx-auto mb-4" size={28} strokeWidth={1.5} />
         Nos vemos ese dia
       </footer>
@@ -160,12 +187,17 @@ const EventDetail = ({ place, time, address, mapUrl }: EventDetailProps) => (
         {address}
       </p>
     </div>
-    <button
-      className="rounded-full bg-stone-50 px-8 py-3 text-sm font-black uppercase tracking-[0.08em] text-zinc-800 transition hover:-translate-y-0.5 hover:bg-white"
-      type="button"
-      onClick={() => openExternal(mapUrl)}
+    <a
+      className="font-display inline-flex items-center gap-2 rounded-full bg-stone-50 px-8 py-3 text-sm font-black uppercase tracking-[0.08em] text-zinc-800 transition hover:-translate-y-0.5 hover:bg-white"
+      href={mapUrl}
+      target="_blank"
+      rel="noreferrer"
+      onClick={(event) => {
+        if (mapUrl === "#") event.preventDefault();
+      }}
     >
       Ver ubicacion
-    </button>
+      <ExternalLink size={16} />
+    </a>
   </div>
 );

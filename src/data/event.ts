@@ -38,13 +38,13 @@ export const eventInfo: EventInfo = {
     place: "Sagrada Familia de Nazaret",
     time: "18.30 hs",
     address: "Direccion a confirmar",
-    mapUrl: "#",
+    mapUrl: "https://www.google.com/maps/search/?api=1&query=Sagrada%20Familia%20de%20Nazaret",
   },
   party: {
     place: "Salon a confirmar",
     time: "20 hs",
     address: "Direccion a confirmar",
-    mapUrl: "#",
+    mapUrl: "https://www.google.com/maps/search/?api=1&query=Salon%20de%20eventos",
   },
   dressCode: {
     label: "Elegante",

@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@1&family=Open+Sans:wght@700&family=Pacifico&family=Poppins:ital,wght@0,400;0,700;1,400&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", "Aptos", "Segoe UI", sans-serif;
-  --font-serif: "Georgia", "Times New Roman", serif;
-  --font-script: "Segoe Script", "Brush Script MT", cursive;
+  --font-sans: "Poppins", "Aptos", "Segoe UI", sans-serif;
+  --font-serif: "Adirek Serif", "Libre Baskerville", "Georgia", serif;
+  --font-script: "Apricots", "Pacifico", "Segoe Script", cursive;
+  --font-display: "Open Sans", "Poppins", sans-serif;
   --shadow-soft: 0 28px 80px rgb(0 0 0 / 0.32);
 }
 
@@ -24,4 +26,23 @@ body {
 
 button {
   cursor: pointer;
+}
+
+@keyframes slow-zoom {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.hero-image {
+  animation: slow-zoom 18s ease-out alternate infinite;
+  transform-origin: center;
+}
+
+.font-display {
+  font-family: var(--font-display);
 }

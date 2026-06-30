@@ -9,23 +9,49 @@ type SectionProps = PropsWithChildren<{
 
 export const Section = ({ icon, title, eyebrow, children }: SectionProps) => (
   <motion.section
-    className="mx-auto flex min-h-screen w-full max-w-3xl flex-col items-center justify-center px-6 py-24 text-center"
-    initial={{ opacity: 0, y: 24 }}
+    className="relative mx-auto flex min-h-screen w-full max-w-3xl flex-col items-center justify-center overflow-hidden px-6 py-24 text-center"
+    initial={{ opacity: 0, y: 42 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.7, ease: "easeOut" }}
-    viewport={{ once: true, margin: "-80px" }}
+    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+    viewport={{ once: true, amount: 0.28 }}
   >
-    <div className="mb-8 flex size-28 items-center justify-center rounded-full bg-stone-300 text-stone-50 shadow-soft">
+    <motion.div
+      className="mb-8 flex size-28 items-center justify-center rounded-full bg-stone-300 text-stone-50 shadow-soft"
+      initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
+      whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+      transition={{ duration: 0.75, delay: 0.12, ease: "easeOut" }}
+      viewport={{ once: true }}
+    >
       {icon}
-    </div>
+    </motion.div>
     {eyebrow ? (
-      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-stone-300">
+      <motion.p
+        className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-stone-300"
+        initial={{ opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, delay: 0.18 }}
+        viewport={{ once: true }}
+      >
         {eyebrow}
-      </p>
+      </motion.p>
     ) : null}
-    <h2 className="font-script text-6xl leading-none text-stone-300 sm:text-7xl">
+    <motion.h2
+      className="font-script text-6xl leading-none text-stone-300 sm:text-7xl"
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.22, ease: "easeOut" }}
+      viewport={{ once: true }}
+    >
       {title}
-    </h2>
-    <div className="mt-12 w-full">{children}</div>
+    </motion.h2>
+    <motion.div
+      className="mt-12 w-full"
+      initial={{ opacity: 0, y: 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.72, delay: 0.32, ease: "easeOut" }}
+      viewport={{ once: true }}
+    >
+      {children}
+    </motion.div>
   </motion.section>
 );
