@@ -10,6 +10,7 @@ Estas son opciones posibles para futuras iteraciones. La idea no es agregar todo
 - Boton para copiar alias o datos bancarios.
 - Mensaje de menu especial: vegetariano, celiaco, alergias, etc.
 - Galeria breve con 4 a 6 fotos.
+- Ver guia de fotos definitivas en `docs/fotos-definitivas.md`.
 
 ## Lindas pero opcionales
 
@@ -37,4 +38,3 @@ Para la proxima etapa conviene priorizar:
 3. Galeria corta.
 4. Boton de calendario.
 5. Pulido visual con fotos definitivas.
-

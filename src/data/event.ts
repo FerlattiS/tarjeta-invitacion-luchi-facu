@@ -3,6 +3,7 @@ export type EventInfo = {
   names: string;
   dateLabel: string;
   dateTime: string;
+  endDateTime: string;
   ceremony: {
     place: string;
     time: string;
@@ -34,6 +35,7 @@ export const eventInfo: EventInfo = {
   names: "Facu y Luchi",
   dateLabel: "10 OCT 26",
   dateTime: "2026-10-10T18:30:00-03:00",
+  endDateTime: "2026-10-11T04:00:00-03:00",
   ceremony: {
     place: "Sagrada Familia de Nazaret",
     time: "18.30 hs",

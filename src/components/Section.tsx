@@ -15,6 +15,7 @@ export const Section = ({ icon, title, eyebrow, children }: SectionProps) => (
     transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
     viewport={{ once: true, amount: 0.28 }}
   >
+    <div className="section-glow pointer-events-none absolute inset-x-8 top-16 h-px opacity-70" />
     <motion.div
       className="mb-8 flex size-28 items-center justify-center rounded-full bg-stone-300 text-stone-50 shadow-soft"
       initial={{ opacity: 0, scale: 0.8, rotate: -8 }}

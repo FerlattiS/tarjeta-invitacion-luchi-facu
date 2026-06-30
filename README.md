@@ -24,6 +24,8 @@ Ver detalles en [docs/stack-y-deploy.md](docs/stack-y-deploy.md).
 
 Ideas para futuras iteraciones en [docs/ideas-para-agregar.md](docs/ideas-para-agregar.md).
 
+Guia para sumar fotos definitivas en [docs/fotos-definitivas.md](docs/fotos-definitivas.md).
+
 ## Desarrollo local
 
 Instalar dependencias:

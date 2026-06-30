@@ -1,5 +1,6 @@
 import {
   CalendarDays,
+  CalendarPlus,
   Check,
   Church,
   ClipboardCheck,
@@ -7,6 +8,7 @@ import {
   ExternalLink,
   Gift,
   GlassWater,
+  Images,
   MapPin,
   Sparkles,
 } from "lucide-react";
@@ -16,6 +18,23 @@ import heroReference from "./assets/hero-reference.png";
 import { eventInfo } from "./data/event";
 import { useCountdown } from "./hooks/useCountdown";
 import { Section } from "./components/Section";
+
+const formatGoogleCalendarDate = (dateTime: string) =>
+  new Date(dateTime).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+
+const googleCalendarUrl = () => {
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: "Casamiento de Luchi y Facu",
+    dates: `${formatGoogleCalendarDate(eventInfo.dateTime)}/${formatGoogleCalendarDate(
+      eventInfo.endDateTime,
+    )}`,
+    details: "Invitacion al casamiento de Luciana y Facundo.",
+    location: `${eventInfo.ceremony.place} / ${eventInfo.party.place}`,
+  });
+
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+};
 
 export const App = () => {
   const countdown = useCountdown(eventInfo.dateTime);
@@ -28,7 +47,7 @@ export const App = () => {
   };
 
   return (
-    <main className="min-h-screen bg-zinc-900 text-stone-100">
+    <main className="app-shell min-h-screen text-stone-100">
       <section className="relative flex min-h-screen items-start justify-center overflow-hidden px-6 py-24 text-center">
         <div
           className="hero-image absolute inset-0 bg-cover bg-center opacity-95"
@@ -79,6 +98,15 @@ export const App = () => {
                 </div>
               ))}
             </div>
+            <a
+              className="font-display mx-auto inline-flex items-center gap-3 rounded-full border border-stone-100/70 bg-zinc-950/35 px-7 py-3 text-sm font-black uppercase tracking-[0.12em] text-stone-50 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:bg-stone-50 hover:text-zinc-900"
+              href={googleCalendarUrl()}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <CalendarPlus size={19} />
+              Agendar
+            </a>
           </motion.div>
         </div>
       </section>
@@ -119,6 +147,16 @@ export const App = () => {
           <p className="mx-auto max-w-xl text-xl uppercase leading-relaxed tracking-[0.08em] text-stone-300">
             {eventInfo.dressCode.note}
           </p>
+        </div>
+      </Section>
+
+      <Section icon={<Images size={56} strokeWidth={1.6} />} title="Fotos">
+        <div className="space-y-8">
+          <p className="mx-auto max-w-xl text-lg uppercase leading-relaxed tracking-[0.08em] text-stone-300">
+            Un espacio reservado para sumar algunas fotos cuando definamos las
+            imagenes finales.
+          </p>
+          <PhotoPlaceholders />
         </div>
       </Section>
 
@@ -199,5 +237,34 @@ const EventDetail = ({ place, time, address, mapUrl }: EventDetailProps) => (
       Ver ubicacion
       <ExternalLink size={16} />
     </a>
+  </div>
+);
+
+const photoCards = [
+  "Portada",
+  "Nosotros",
+  "Detalle",
+  "Fiesta",
+];
+
+const PhotoPlaceholders = () => (
+  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+    {photoCards.map((label, index) => (
+      <motion.div
+        key={label}
+        className="photo-placeholder group relative aspect-[3/4] overflow-hidden rounded-[1.35rem] border border-stone-200/20 bg-stone-950/60 shadow-soft"
+        initial={{ opacity: 0, y: 28, rotate: index % 2 === 0 ? -2 : 2 }}
+        whileInView={{ opacity: 1, y: 0, rotate: index % 2 === 0 ? -1 : 1 }}
+        transition={{ duration: 0.72, delay: index * 0.08, ease: "easeOut" }}
+        viewport={{ once: true, amount: 0.4 }}
+      >
+        <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(214,202,181,0.2),rgba(39,39,42,0.2)_42%,rgba(8,8,8,0.72)),repeating-linear-gradient(90deg,rgba(255,255,255,0.08)_0_1px,transparent_1px_22px)] transition duration-700 group-hover:scale-105" />
+        <div className="absolute inset-x-0 bottom-0 bg-zinc-950/55 px-3 py-4 backdrop-blur">
+          <p className="font-display text-xs font-black uppercase tracking-[0.18em] text-stone-200">
+            {label}
+          </p>
+        </div>
+      </motion.div>
+    ))}
   </div>
 );
