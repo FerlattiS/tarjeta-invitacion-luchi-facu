@@ -4,6 +4,10 @@ Invitacion web para el casamiento de Luciana y Facundo, con foco en una experien
 
 Fecha del evento: 10/10/2026.
 
+Preview online:
+
+https://ferlattis.github.io/tarjeta-invitacion-luchi-facu/
+
 ## Stack previsto
 
 - Vite
